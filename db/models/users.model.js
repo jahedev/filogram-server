@@ -4,12 +4,12 @@ const db = require('../db')
 const Users = db.define(
   'users',
   {
-    userId: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
-      field: 'user_id',
+      field: 'id',
     },
     firstName: {
       type: DataTypes.STRING,

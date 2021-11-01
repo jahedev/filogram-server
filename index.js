@@ -4,22 +4,20 @@ const cors = require('cors')
 const morgan = require('morgan')
 const db = require('./db')
 
-// .env file
+// .env //
 require('dotenv').config()
+const { HOST, PORT } = process.env
 
-// middleware
+// MIDDLEWARE //
+app.use(morgan('dev'))
 app.use(cors())
 app.use(express.json())
 
-// initialize express app
-app.listen(process.env.PORT, () => {
-  console.log(`>> app is listening on localhost:${process.env.PORT}`)
+// ROUTES //
+
+// INITIALIZE DB AND SERVER //
+
+db.sync()
+app.listen(PORT, () => {
+  console.log(`>> app is listening on ${HOST}:${PORT}`)
 })
-
-/* #region: connect to database */
-
-/* #endregion: connect to database */
-
-/* #region: middleware */
-app.use(morgan('dev'))
-/* #endregion: middleware */
