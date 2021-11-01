@@ -1,12 +1,11 @@
 const express = require('express')
-const morgan = require('morgan')
+const app = express()
 const cors = require('cors')
-const pool = require('./db')
+const morgan = require('morgan')
+const db = require('./db')
 
 // .env file
 require('dotenv').config()
-
-const app = express()
 
 // middleware
 app.use(cors())
