@@ -14,6 +14,7 @@ app.use(cors())
 app.use(express.json())
 
 // ROUTES //
+app.use('/api', require('./api/index'))
 
 // INITIALIZE DB AND SERVER //
 
