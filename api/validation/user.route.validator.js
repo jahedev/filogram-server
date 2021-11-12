@@ -36,8 +36,12 @@ const UserValidator = {
   },
   // returns a promise of a db search for the username, rather than a boolean value
   async usernameExists(username) {
-    let user = await Users.findOne({ where: { username } })
-    return user !== null
+    let result = await Users.findOne({ where: { username } })
+    return result !== null
+  },
+  async emailExists(email) {
+    let result = await Users.findOne({ where: { email } })
+    return result !== null
   },
 }
 

@@ -22,15 +22,22 @@ router.post('/create-user', async (req, res) => {
   )
 
   let usernameExists = await UserValidator.usernameExists(username)
+  let emailExists = await UserValidator.emailExists(email)
+
   if (usernameExists) {
     logger.message(`Username '${username}' already exists.`)
-    return res.status(401).send({
+    return res.status(409).send({
       message: `Error: ${username} already exists.`,
+    })
+  } else if (emailExists) {
+    logger.message(`Email '${email}' already exists.`)
+    return res.status(409).send({
+      message: `Error: ${email} already exists.`,
     })
   }
 
   if (!validation.result)
-    return res.status(401).send({
+    return res.status(400).send({
       message: `Error: ${validation.message}`,
     })
 
