@@ -12,7 +12,7 @@ const validator = {
   isUsername(username) {
     if (typeof username !== 'string') return false
     // https://stackoverflow.com/a/12019115
-    return /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/.test(username)
+    return /^(?=[a-zA-Z0-9._]{1,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/.test(username)
   },
   isName(name) {
     if (typeof name !== 'string') return false

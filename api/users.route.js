@@ -25,12 +25,12 @@ router.post('/create-user', async (req, res) => {
   let emailExists = await UserValidator.emailExists(email)
 
   if (usernameExists) {
-    logger.message(`Username '${username}' already exists.`)
+    logger.message(`Username '${username}' already exists.`, 'User Creation')
     return res.status(409).send({
       message: `Error: ${username} already exists.`,
     })
   } else if (emailExists) {
-    logger.message(`Email '${email}' already exists.`)
+    logger.message(`Email '${email}' already exists.`, 'User Creation')
     return res.status(409).send({
       message: `Error: ${email} already exists.`,
     })
@@ -55,7 +55,7 @@ router.post('/create-user', async (req, res) => {
       .status(200)
       .send({ message: ` User: ${user.username} | ${user.email} created.` })
   } catch (error) {
-    console.error(error)
+    logger.log(error, 'Internal Server Error')
     res.status(500).send({ message: '500 - Internal Server Error' })
   }
 })

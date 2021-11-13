@@ -24,11 +24,13 @@ const Users = db.define(
     username: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
       field: 'username',
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
       field: 'email',
     },
     password: {
