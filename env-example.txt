@@ -1,0 +1,13 @@
+# This is how the .env file should be:
+
+# Server Info
+HOST=localhost
+PORT=4000
+
+# DB Info
+DB_DIALECT=postgres
+DB_USER=dbuser
+DB_PASS=dbpass
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=filogram
