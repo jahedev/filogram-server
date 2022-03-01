@@ -3,9 +3,6 @@ const router = express.Router()
 const Users = require('../db/models/users.model')
 const UserValidator = require('./validation/user.route.validator')
 const logger = require('../support/logger')
-// const auth = require('../auth/auth.js')
-
-// router.get('/auth', async (req, res) => {})
 
 /* https://localhost:4000/api/users/create-user
  *
