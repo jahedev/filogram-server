@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Users = require('../db/models/users.model')
 const UserValidator = require('./validation/user.route.validator')
-const logger = require('../support/logger')
+const logger = require('../lib/logger')
 
 /* https://localhost:4000/api/users/create-user
  *

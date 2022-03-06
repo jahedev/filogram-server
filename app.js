@@ -4,32 +4,43 @@ const cors = require('cors')
 const morgan = require('morgan')
 const session = require('express-session')
 const db = require('./db')
-const auth = require('./auth/auth')
+const passport = require('./config/passport')
 
-// .env //
+/**
+ * ---------- CONFIG ----------
+ */
 require('dotenv').config()
 const { HOST, PORT } = process.env
 
-// MIDDLEWARE //
+/**
+ * ---------- MIDDLEWARE ----------
+ */
 app.use(morgan('dev'))
 app.use(cors())
 app.use(express.json())
 app.use(
   session({
-    secrent: 'cats',
+    secret: 'cats',
     resave: false,
     saveUninitialized: true,
   })
 )
-app.use(auth.initialize())
-app.use(auth.session())
+
+/**
+ * ---------- USER AUTHENTICATION ----------
+ */
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(express.urlencoded({ extended: false }))
 
-// ROUTES //
+/**
+ * ---------- ROUTES ----------
+ */
 app.use('/api', require('./api/index'))
 
-// INITIALIZE DB AND SERVER //
-
+/**
+ * ---------- INITALIZE DB AND SERVER ----------
+ */
 db.sync()
 app.listen(PORT, () => {
   console.log(`>> app is listening on ${HOST}:${PORT}`)
