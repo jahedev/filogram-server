@@ -2,6 +2,7 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const db = require('../db')
 const Users = require('../db/models/users.model')
+const validPassword = require('../lib/password-utils').validPassword
 
 const verifyCb = (username, password, done) => {
   Users.findOne({

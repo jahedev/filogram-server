@@ -20,9 +20,13 @@ app.use(cors())
 app.use(express.json())
 app.use(
   session({
-    secret: 'cats',
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
+    store: sessionStore,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24, // 24 hours
+    },
   })
 )
 

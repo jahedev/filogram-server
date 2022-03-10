@@ -38,6 +38,11 @@ const Users = db.define(
       allowNull: false,
       field: 'password',
     },
+    salt: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      field: 'salt',
+    },
   },
   {
     define: {
