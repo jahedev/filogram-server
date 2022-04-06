@@ -4,6 +4,7 @@ const cors = require('cors')
 const morgan = require('morgan')
 const session = require('express-session')
 const db = require('./db')
+const SequelizeStore = require('connect-session-sequelize')(session.Store)
 const passport = require('./config/passport')
 
 /**
@@ -11,6 +12,12 @@ const passport = require('./config/passport')
  */
 require('dotenv').config()
 const { HOST, PORT } = process.env
+
+var sessionStore = new SequelizeStore({
+  db: db,
+  checkExpirationInterval: 15 * 60 * 1000,
+  expiration: 7 * 24 * 60 * 60 * 1000,
+})
 
 /**
  * ---------- MIDDLEWARE ----------
@@ -35,6 +42,12 @@ app.use(
  */
 app.use(passport.initialize())
 app.use(passport.session())
+
+app.use((req, res, next) => {
+  console.log(req.session)
+  console.log(req.user)
+})
+
 app.use(express.urlencoded({ extended: false }))
 
 /**
