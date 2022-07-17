@@ -84,7 +84,10 @@ router.post(
     failureMessage: true,
   }),
   (req, res) => {
-    res.redirect('/~' + req.username)
+    // res.redirect('/~' + req.username)
+    res.status(200).send({
+      message: `User: ${req.user.username} | ${req.user.email} logged in.`,
+    })
   }
 )
 
