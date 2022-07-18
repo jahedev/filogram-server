@@ -3,4 +3,4 @@ const jwt = require('jsonwebtoken');
 
 require('dotenv').config();
 
-const JWT_EXPIRATION = 60 * 60 * 24 * 14; // 14 days
+const { JWT_EXPIRATION } = process.env;
