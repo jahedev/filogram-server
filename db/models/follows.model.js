@@ -1,5 +1,5 @@
-const { Sequelize, Op, Model, DataTypes } = require('sequelize')
-const db = require('../db')
+const { Sequelize, Op, Model, DataTypes } = require('sequelize');
+const db = require('../db');
 
 const Follows = db.define(
   'follows',
@@ -27,6 +27,6 @@ const Follows = db.define(
       freezeTableName: true,
     },
   }
-)
+);
 
-module.exports = Follows
+module.exports = Follows;
