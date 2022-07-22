@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Users = require("../db/models/users.model");
 const resAPI = require("../support/resAPI");
+const jwt = require("jsonwebtoken");
 
 const { JWT_SECRET, JWT_EXPIRATION } = process.env;
 
