@@ -48,7 +48,7 @@ const Users = db.define(
             beforeCreate: async function (user) {
                 user.email = user.email.toLowerCase();
 
-                const salt = bcrypt.hash(user.password, salt);
+                const salt = await bcrypt.genSalt();
                 user.password = await bcrypt.hash(user.password, salt);
             },
         },
@@ -67,6 +67,11 @@ Users.login = async function (email, password) {
     }
 
     return user;
+};
+
+Users.emailExists = async function (email, password) {
+    const user = await this.findOne({ where: { email } });
+    return Boolean(user);
 };
 
 module.exports = Users;
