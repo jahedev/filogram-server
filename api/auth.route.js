@@ -8,7 +8,7 @@ const logger = require("../support/logger");
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRATION = parseInt(process.env.JWT_EXPIRATION);
 
-router.get("/logout", async (req, res) => {
+router.get("/logout", async (_, res) => {
     res.cookie("JWT", "DELETE", { maxAge: 1, httpOnly: true });
     res.status(200).json(resAPI(true, "Successfully logged out"));
 });
