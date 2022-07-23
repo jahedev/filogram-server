@@ -9,7 +9,7 @@ const config = {
     dialect: DB_DIALECT,
     host: DB_HOST,
     protocol: DB_PORT,
-    logging: true,
+    logging: false,
     define: {
         underscored: true,
     },

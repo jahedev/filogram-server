@@ -16,11 +16,10 @@ router.get("/logout", async (req, res) => {
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
-    // DeMorgan's Law from Discrete Class: !A or !B == !(A and B)
-    if (!(email && password)) {
-        res.status(400).send(
-            resAPI(false, "Error: email or password is empty.")
-        );
+    // make sure fields are valid, and email exists
+    const valid = await validateLoginFields(req.body);
+    if (valid.result === "error") {
+        return res.status(400).json(valid);
     }
 
     try {
@@ -49,27 +48,27 @@ router.post("/signup", async (req, res) => {
     `);
 
     // if fields are not valid, return with the error message
-    const valid = validateSignupFields(req.body);
+    const valid = await validateSignupFields(req.body);
     if (valid.result === "error") {
         res.status(400).json(valid);
     }
 
     try {
-        // let user = await Users.create({
-        //     firstName,
-        //     lastName,
-        //     username,
-        //     email,
-        //     password,
-        // });
-
-        let user = {
+        let user = await Users.create({
             firstName,
             lastName,
             username,
             email,
             password,
-        };
+        });
+
+        // let user = {
+        //     firstName,
+        //     lastName,
+        //     username,
+        //     email,
+        //     password,
+        // };
 
         logger.message(`
             id: ${user.id}
@@ -95,9 +94,9 @@ const validateLoginFields = async function (body) {
         return resAPI(false, "Error: email or password is empty.");
     }
 
-    if (await !Users.emailExists(email))
-        return resAPI(false, "Error: email does not exist.");
-    return resAPI(false, "None.");
+    const user = await Users.emailExists(email);
+    if (!user) return resAPI(false, "Error: email does not exist.");
+    return resAPI(true, "None.");
 };
 
 const validateSignupFields = function (body) {
