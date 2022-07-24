@@ -3,7 +3,6 @@ const router = express.Router();
 const Users = require("../db/models/users.model");
 const resAPI = require("../support/resAPI");
 const jwt = require("jsonwebtoken");
-const logger = require("../support/logger");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRATION = parseInt(process.env.JWT_EXPIRATION);
@@ -61,20 +60,6 @@ router.post("/signup", async (req, res) => {
             email,
             password,
         });
-
-        // let user = {
-        //     firstName,
-        //     lastName,
-        //     username,
-        //     email,
-        //     password,
-        // };
-
-        logger.message(`
-            id: ${user.id}
-            JWT_SECRET: ${JWT_SECRET} -- ${typeof JWT_SECRET},
-            JWT_EXPIRATION: ${JWT_EXPIRATION}  -- ${typeof JWT_EXPIRATION},
-        `);
 
         const token = createToken(user.id);
         res.cookie("JWT", token, {

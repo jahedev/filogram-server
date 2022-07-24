@@ -5,8 +5,7 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 const db = require("./db");
-const auth = require("./auth/authMiddleware");
-const { requireAuth, checkUser } = require("./auth/authMiddleware");
+const { checkUser } = require("./auth/authMiddleware");
 
 /* --- CONFIGURATION --- */
 require("dotenv").config();
