@@ -1,36 +1,29 @@
-const express = require('express')
-const app = express()
-const cors = require('cors')
-const morgan = require('morgan')
-const session = require('express-session')
-const db = require('./db')
-const auth = require('./auth/auth')
+const express = require("express");
+const cors = require("cors");
+const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
 
-// .env //
-require('dotenv').config()
-const { HOST, PORT } = process.env
+const app = express();
+const db = require("./db");
+const { checkUser } = require("./auth/authMiddleware");
 
-// MIDDLEWARE //
-app.use(morgan('dev'))
-app.use(cors())
-app.use(express.json())
-app.use(
-  session({
-    secrent: 'cats',
-    resave: false,
-    saveUninitialized: true,
-  })
-)
-app.use(auth.initialize())
-app.use(auth.session())
-app.use(express.urlencoded({ extended: false }))
+/* --- CONFIGURATION --- */
+require("dotenv").config();
+const { HOST, PORT } = process.env;
 
-// ROUTES //
-app.use('/api', require('./api/index'))
+/* --- MIDDLEWARE --- */
+app.use(cors());
+app.use(morgan("dev"));
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-// INITIALIZE DB AND SERVER //
+/* --- ROUTES --- */
+app.all("*", checkUser);
+app.use("/api", require("./api/index"));
 
-db.sync()
+/* --- DATABASE CONNECTION & SERVER --- */
+db.sync();
 app.listen(PORT, () => {
-  console.log(`>> app is listening on ${HOST}:${PORT}`)
-})
+    console.log(`>> app is listening on ${HOST}:${PORT}`);
+});

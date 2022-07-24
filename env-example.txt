@@ -11,3 +11,7 @@ DB_PASS=dbpass
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=filogram
+
+# Auth
+JWT_SECRET=K4sewWMfr4juenJEfBC9SuGFmdAgYzxc
+JWT_EXPIRATION=1209600 # 14 days
