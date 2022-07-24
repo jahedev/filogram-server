@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const app = express();
 const db = require("./db");
 const auth = require("./auth/authMiddleware");
+const { requireAuth, checkUser } = require("./auth/authMiddleware");
 
 /* --- CONFIGURATION --- */
 require("dotenv").config();
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 /* --- ROUTES --- */
+app.all("*", checkUser);
 app.use("/api", require("./api/index"));
 
 /* --- DATABASE CONNECTION & SERVER --- */

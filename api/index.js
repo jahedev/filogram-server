@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const { requireAuth } = require("../auth/authMiddleware");
 
 router.use("/auth", require("./auth.route"));
 // router.use("/comments", require("./comments.route"));
 // router.use("/follows", require("./follows.route"));
 // router.use("/likes", require("./likes.route"));
-// router.use("/posts", require("./posts.route"));
+router.use("/posts", requireAuth, require("./posts.route"));
 router.use("/users", require("./users.route"));
 
 //Anything not found gets a 404
